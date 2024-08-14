@@ -1,87 +1,69 @@
-# Fake News Detection Using Machine Learning
+---
 
-## Introduction
-Fake news detection is a critical task in today's digital world, where misinformation can spread rapidly through social media and other online platforms. This project utilizes various machine learning algorithms to classify news articles as either "fake" or "real."
+# Fake News Prediction
 
-## Table of Contents
-1. [Project Overview](#project-overview)
-2. [Dataset](#dataset)
-3. [Data Preprocessing](#data-preprocessing)
-4. [Exploratory Data Analysis](#exploratory-data-analysis)
-5. [Modeling](#modeling)
-6. [Results](#results)
-7. [Installation](#installation)
-8. [Usage](#usage)
-9. [Contributing](#contributing)
+## Overview
 
-## Project Overview
-This project implements and compares the performance of several machine learning algorithms to detect fake news. The algorithms used include:
-- Naive Bayes
-- Logistic Regression
-- Decision Tree
-- Random Forest
-- Support Vector Machine (SVM)
+The Fake News Prediction project classifies news articles as either real or fake using machine learning. The project utilizes Natural Language Processing (NLP) techniques for text preprocessing and a Logistic Regression model for classification.
+
+## Features
+
+- **Text Preprocessing**: The text is cleaned and preprocessed by removing stopwords and applying stemming to reduce words to their root forms.
+- **TF-IDF Vectorization**: Converts the text data into numerical format using Term Frequency-Inverse Document Frequency (TF-IDF).
+- **Machine Learning Model**: A Logistic Regression model is used to classify the news articles as real or fake.
+- **Evaluation**: The model is evaluated using accuracy scores on both training and test datasets.
 
 ## Dataset
-The datasets used in this project are:
-- `Fake.csv`: Contains fake news articles.
-- `True.csv`: Contains real news articles.
 
-Both datasets are preprocessed to remove any unwanted columns and text data is cleaned for better analysis.
+The dataset consists of news articles labeled as either "real" (0) or "fake" (1). The dataset is loaded from Google Drive in CSV format.
 
-## Data Preprocessing
-Data preprocessing steps include:
-- Combining the fake and real datasets with labels.
-- Shuffling the data.
-- Converting text to lowercase.
-- Removing punctuation.
-- Removing stopwords.
+## Execution Steps
 
-## Exploratory Data Analysis
-Basic data exploration includes:
-- Counting the number of articles per subject.
-- Visualizing the distribution of articles using bar plots.
-- Generating word clouds for fake and real news articles.
-- Identifying the most frequent words in both fake and real news articles.
+1. **Mount Google Drive**:
+   - Mount your Google Drive in the notebook to access the dataset.
+   - Example:
+     ```python
+     from google.colab import drive
+     drive.mount('/content/drive')
+     ```
 
-## Modeling
-Several machine learning models are trained and evaluated:
-- **Naive Bayes**: Achieved an accuracy of 95.31%
-- **Logistic Regression**: Achieved an accuracy of 98.84%
-- **Decision Tree**: Achieved an accuracy of 99.65%
-- **Random Forest**: Achieved an accuracy of 98.94%
-- **Support Vector Machine (SVM)**: Achieved an accuracy of 99.48%
+2. **Load the Dataset**:
+   - Load the dataset from the mounted Google Drive.
+   - Example:
+     ```python
+     news_data = pd.read_csv('/content/drive/MyDrive/train.csv')
+     ```
 
-Confusion matrices are plotted to visualize the performance of each model.
+3. **Data Preprocessing**:
+   - Handle missing values by replacing them with empty strings.
+   - Merge the `author` and `title` columns into a single `content` column.
+   - Apply text preprocessing including lowercasing, removing non-alphabetical characters, removing stopwords, and stemming.
 
-## Results
-The Decision Tree model achieved the highest accuracy of 99.65%. The performance of each model is summarized in a bar plot for easy comparison.
+4. **Vectorization**:
+   - Convert the preprocessed text data into numerical format using TF-IDF vectorization.
 
-## Installation
-To run this project locally, you need to have Python and the following libraries installed:
-- pandas
-- numpy
-- matplotlib
-- seaborn
-- scikit-learn
-- nltk
-- wordcloud
+5. **Model Training**:
+   - Split the data into training and testing sets.
+   - Train a Logistic Regression model using the training data.
 
-You can install the required libraries using the following command:
-```bash
-pip install pandas numpy matplotlib seaborn scikit-learn nltk wordcloud
-```
+6. **Evaluation**:
+   - Evaluate the model on both training and test data by calculating accuracy scores.
 
-## Usage
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/kishore-klassy/Fake-news-prediction.git
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd Fake-news-prediction
-   ```
-3. Run the Jupyter Notebook or Python script to preprocess the data, train the models, and evaluate the results.
+7. **Prediction**:
+   - Use the trained model to predict whether a new piece of news is real or fake.
+   - Example:
+     ```python
+     x_new = X_test[1]
+     prediction = model.predict(x_new)
 
-## Contributing
-Contributions are welcome! Please fork the repository and submit a pull request for any improvements or bug fixes.
+     if prediction[0] == 0:
+         print("Real News")
+     else:
+         print("Fake News")
+     ```
+
+## Conclusion
+
+This notebook provides a comprehensive workflow for building and evaluating a machine learning model to classify fake news. It covers the entire process from data loading and preprocessing to model training, evaluation, and prediction, all within a single Jupyter notebook.
+
+---
